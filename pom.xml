@@ -32,7 +32,7 @@
     <profile>
       <id>testLocal</id>
       <properties>
-        <db.url>jdbc:mysql://localhost:3306/test_local</db.url>
+        <db.url>jdbc:mysql://${database.host}:${database.port}/test_local</db.url>
         <db.schema>test_local</db.schema>
         <db.location.common>db/migration/test/local-common</db.location.common> 
         <db.location.crop>db/migration/test/local-rice</db.location.crop>
@@ -41,7 +41,7 @@
     <profile>
       <id>testCentral</id>
       <properties>
-        <db.url>jdbc:mysql://localhost:3306/test_central</db.url>
+        <db.url>jdbc:mysql://${database.host}:${database.port}/test_central</db.url>
   	    <db.schema>test_central</db.schema>
         <db.location.common>db/migration/test/central-common</db.location.common>
         <db.location.crop>db/migration/test/central-rice</db.location.crop>
@@ -50,7 +50,7 @@
   	<profile>
       <id>testLocalGroundnut</id>
       <properties>
-        <db.url>jdbc:mysql://localhost:3306/test_groundnut_local</db.url>
+        <db.url>jdbc:mysql://${database.host}:${database.port}/test_groundnut_local</db.url>
         <db.schema>test_groundnut_local</db.schema>
         <db.location.common>db/migration/test/local-common</db.location.common>
         <db.location.crop>db/migration/test/local-groundnut</db.location.crop>
@@ -59,7 +59,7 @@
   	<profile>
       <id>testCentralGroundnut</id>
       <properties>
-        <db.url>jdbc:mysql://localhost:3306/test_groundnut_central</db.url>
+        <db.url>jdbc:mysql://${database.host}:${database.port}/test_groundnut_central</db.url>
         <db.schema>test_groundnut_central</db.schema>
         <db.location.common>db/migration/test/central-common</db.location.common>
         <db.location.crop>db/migration/test/central-groundnut</db.location.crop>
@@ -68,7 +68,7 @@
   	<profile>
       <id>testWorkbench</id>
       <properties>
-        <db.url>jdbc:mysql://localhost:3306/test_workbench</db.url>
+        <db.url>jdbc:mysql://${database.host}:${database.port}/test_workbench</db.url>
         <db.schema>test_workbench</db.schema>
         <db.location.common>db/migration/test/workbench</db.location.common>
         <db.location.crop>db/migration/test/workbench</db.location.crop>
@@ -85,13 +85,14 @@
           <version>${properties.plugin.version}</version>
           <executions>
             <execution>
-              <phase>validate</phase>
+              <id>default-cli</id>
+              <phase>initialize</phase>
               <goals>
                 <goal>read-project-properties</goal>
               </goals>
               <configuration>
               <files>
-                <file>databaseConfig.properties</file>
+                <file>src/main/resources/databaseConfig.properties</file>
               </files>
               </configuration>
             </execution>
@@ -110,9 +111,9 @@
           </dependencies>
           <configuration>
 			<driver>com.mysql.jdbc.Driver</driver>
-			<url>jdbc:mysql://localhost:3306</url>
-			<username>root</username>
-			<password></password>
+			<url>jdbc:mysql://${database.host}:${database.port}</url>
+			<username>${database.user}</username>
+			<password>${database.password}</password>
 			<settingsKey>sensibleKey</settingsKey>
 			<skip>${maven.test.skip}</skip>
           </configuration>
@@ -152,8 +153,8 @@
           <configuration>
 			<driver>com.mysql.jdbc.Driver</driver>
 			<url>${db.url}</url>
-			<user>root</user>
-			<password></password>
+			<user>${database.user}</user>
+			<password>${database.password}</password>
 			<schemas>
 			  <schema>${db.schema}</schema>
 			</schemas>

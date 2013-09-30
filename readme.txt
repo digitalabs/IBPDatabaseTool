@@ -7,16 +7,16 @@ Current Database Tools:
     *  test_local, test_central, test_groundnut_local, test_groundnut_central, test_workbench
 
     a.  If you do not have these databases yet, you may execute the scripts for creating them.
-        mvn sql:execute
+        mvn properties:read-project-properties sql:execute
 
     b.  To refresh your database
-        mvn -P <profile> compile flyway:clean flyway:init flyway:migrate
+        mvn -P <profile> compile properties:read-project-properties flyway:clean flyway:init flyway:migrate
 
     c.  If your migration fail, and wants to re-execute
-        mvn -P <profile> flyway:repair flyway:migrate
+        mvn -P <profile> properties:read-project-properties flyway:repair flyway:migrate
 
     d.  To find out what's on your database
-        mvn -P <profile> flyway:info
+        mvn -P <profile> properties:read-project-properties flyway:info
 
    *Valid profile values are:
     - testLocal, testCentral, testLocalGroundnut, testCentralGroundnut, testWorkbench
